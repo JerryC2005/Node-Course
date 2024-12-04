@@ -10,13 +10,25 @@
 // console.log(sum);
 
 // const validator = require('validator')
-const getNotes = require('./notes.js');
+// const getNotes = require('./notes.js');
 
-const chalk = require('chalk')
+// const chalk = require('chalk')
 
-let msg = getNotes();
+// let msg = getNotes();
 
-console.log(msg);
-// console.log(validator.isEmail('gmail.com'));
-// console.log(validato(r.isURL('https://bruh.com'));
-console.log(chalk.blue.inverse('bruh!'));
+// console.log(msg);
+// // console.log(validator.isEmail('gmail.com'));
+// // console.log(validato(r.isURL('https://bruh.com'));
+// console.log(chalk.blue.inverse('bruh!'));
+
+// console.log(process.argv);
+
+const command = process.argv[2];
+
+console.log(process.argv)
+
+if (command === 'add') {
+    console.log('Adding note!');
+} else if (command === 'remove') {
+    console.log('removing note');
+}

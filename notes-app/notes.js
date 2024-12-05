@@ -1,34 +1,75 @@
 const fs = require('fs')
+const chalk = require('chalk')
 
-const getNotes = function () {
+const redError = chalk.bgRed;
+const greenSuccess = chalk.bgGreen;
+
+const getNotes = () => {
     return 'your notes'
 }
 
-const addNote = function(title, body) {
+// appends and stores note in JSON file
+const addNote = (title, body) => {
     const notes = loadNotes();
-    const dupeNote = notes.filter((note) => {
-        return note.title === title
-    })
+    const dupeNote = notes.find(note => note.title === title)
 
-    if(dupeNote.length === 0) {
+    if(!dupeNote) {
         notes.push({
             title: title,
             body: body
         })
         saveNotes(notes)
 
-        console.log('new note added!')
+        console.log(greenSuccess('new note added!'))
     } else {
-        console.log('Note taken');
+        console.log(redError('Note title taken'));
     }
 }
 
-const saveNotes = function(notes) {
+const removeNote = (title) => {
+    const notes = loadNotes();
+    const notesToKeep = notes.filter((note) => note.title !== title)
+
+    if (notes.length > notesToKeep.length) {
+        console.log(greenSuccess('Removed Note!'))
+        saveNotes(notesToKeep);
+    } else {
+        console.log(redError('no note Found!'))
+    }
+
+    // console.log(title)
+    // console.log('removing', title)
+}
+
+const listNotes = () => {
+    const notes = loadNotes();
+    console.log(greenSuccess('-----Your Notes-----'))
+
+    notes.forEach(note => {
+        console.log(note.title);
+    });
+}
+
+const readNote = (title) => {
+    const notes = loadNotes();
+    const foundNote = notes.find(note => note.title === title);
+    
+    if(foundNote) {
+        console.log(greenSuccess(foundNote.title));
+        console.log(foundNote.body);
+    } else {
+        console.log(redError('Note not found'))
+    }
+}
+
+
+const saveNotes = (notes) => {
     const dataJson = JSON.stringify(notes);
     fs.writeFileSync('notes.json', dataJson);
 }
 
-const loadNotes = function() {
+//loads notes so that they are readable to JS
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJson = dataBuffer.toString();
@@ -38,27 +79,10 @@ const loadNotes = function() {
     }
 }
 
-const removeNote = function (title) {
-    const notes = loadNotes();
-    const matchNote = notes.filter((note) => {
-        return title === note.title;
-    })
-
-    console.log(matchNote)
-
-    if(matchNote.title === title) {
-        console.log('deleting note')
-        // saveNotes(notes);
-    } else {
-        console.log('no note of that name')
-    }
-
-    // console.log(title)
-    // console.log('removing', title)
-}
-
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes,
+    readNote: readNote
 };

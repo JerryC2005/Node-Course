@@ -1,5 +1,6 @@
 const fs = require('fs')
-const chalk = require('chalk')
+const chalk = require('chalk');
+const { title } = require('process');
 
 const redError = chalk.bgRed;
 const greenSuccess = chalk.bgGreen;
@@ -62,6 +63,29 @@ const readNote = (title) => {
     }
 }
 
+const editNote = (title, body) => {
+    const notes = loadNotes();
+    let foundNote = notes.find(note => note.title === title)
+
+    if(foundNote) {
+        const notesToKeep = notes.filter((note) => note.title !== title)
+
+        foundNote = {
+            title: title,
+            body: body
+        }
+        console.log(foundNote)
+
+        notes.push(foundNote)
+        saveNotes(notesToKeep)
+        console.log(greenSuccess('edited file SuccessFully!'))
+    }
+    else {
+        console.log(redError('no file found'));
+    }
+}
+
+
 
 const saveNotes = (notes) => {
     const dataJson = JSON.stringify(notes);
@@ -84,5 +108,6 @@ module.exports = {
     addNote: addNote,
     removeNote: removeNote,
     listNotes: listNotes,
-    readNote: readNote
+    readNote: readNote,
+    editNote: editNote
 };

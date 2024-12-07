@@ -102,18 +102,25 @@ yargs.command({
     }
 })
 
+//
 yargs.command({
-    command: 'Edit',
+    command: 'edit',
     describe: 'Edit will allow the user tp edit the note',
     builder: {
         title: {
-            demandOption: 'true',
-
+            demandOption: true,
+            type: 'string',
+            describe: 'note title'
         },
+
+        body: {
+            demandOption: true,
+            type: 'string',
+            describe: 'note body'
+        }
     },
-    handler: function(title, body) {
-        const read = fs.readFileSync()
-        
+    handler(argv) {
+        note.editNote(argv.title, argv.body);
     }
 })
 

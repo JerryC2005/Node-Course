@@ -75,9 +75,9 @@ const editNote = (title, body) => {
             body: body
         }
         console.log(foundNote)
-
-        notes.push(foundNote)
+        notesToKeep.push(foundNote)
         saveNotes(notesToKeep)
+        
         console.log(greenSuccess('edited file SuccessFully!'))
     }
     else {

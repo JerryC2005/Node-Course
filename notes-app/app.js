@@ -105,7 +105,7 @@ yargs.command({
 //
 yargs.command({
     command: 'edit',
-    describe: 'Edit will allow the user tp edit the note',
+    describe: 'Edit will allow the user to edit the note',
     builder: {
         title: {
             demandOption: true,

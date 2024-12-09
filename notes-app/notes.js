@@ -14,6 +14,8 @@ const addNote = (title, body) => {
     const notes = loadNotes();
     const dupeNote = notes.find(note => note.title === title)
 
+    debugger
+
     if(!dupeNote) {
         notes.push({
             title: title,

@@ -1,10 +1,7 @@
-console.log('client side js file is loaded')
+
 
 // get url with address query
 // 
-
-
-
 const weatherForm = document.querySelector('form');
 const searchEl = document.querySelector('input');
 const msg1 = document.getElementById('msg-1');
@@ -14,7 +11,7 @@ weatherForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
     const location = searchEl.value
-    let locationUrl = `http://localhost:3000/weather?address=${location}`
+    let locationUrl = `/weather?address=${location}`
     msg1.textContent = 'Loading...';
     msg2.textContent = '';
 

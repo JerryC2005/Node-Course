@@ -76,6 +76,7 @@ const editNote = (title, body) => {
             title: title,
             body: body
         }
+        
         console.log(foundNote)
         notesToKeep.push(foundNote)
         saveNotes(notesToKeep)

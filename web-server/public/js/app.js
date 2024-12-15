@@ -1,7 +1,7 @@
 
 
 // get url with address query
-// 
+//
 const weatherForm = document.querySelector('form');
 const searchEl = document.querySelector('input');
 const msg1 = document.getElementById('msg-1');
@@ -11,7 +11,11 @@ weatherForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
     const location = searchEl.value
-    let locationUrl = `/weather?address=${location}`
+    const unit = document.querySelector('input[name="unit"]:checked').value
+    let locationUrl = `/weather?address=${location}&unit=${unit}`
+
+    console.log(locationUrl)
+
     msg1.textContent = 'Loading...';
     msg2.textContent = '';
 
